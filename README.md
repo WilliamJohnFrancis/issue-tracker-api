@@ -6,7 +6,7 @@ The purpose of this project is to demonstrate my understanding and application o
 
 ## Requirements
 
-- Homebrew, Git, Postgresql, pgAdmin 4, Node (npm)
+- Homebrew, Git, Postgresql, Node (npm)
 
 ### Homebrew
 
@@ -24,15 +24,11 @@ Then open a new terminal window and run:
 
 There should be output similar to:
 
-git version 2.24.3 (Apple Git-128)
+    git version 2.24.3 (Apple Git-128)
 
 ### Postgresql
 
 Following the installation guide using the Postgresql app from the [offical Postgres website](https://postgresapp.com)
-
-### pgAdmin 4
-
-Take the latest version downloading and running the **.dmg** file from the [offical pgAdmin website](https://www.pgadmin.org/download/pgadmin-4-macos/)
 
 ### Node
 
@@ -51,11 +47,27 @@ If you need to update `npm`, you can run:
 
     $ npm install npm -g
 
-Then afterward open a new terminal window.
+---
 
 ###
 
-## Install
+## Useful
+
+- pgAdmin 4 (Database GUI), Postman (Request/Response GUI)
+
+### pgAdmin 4
+
+Take the latest version downloading and running the **.dmg** file from the [offical pgAdmin website](https://www.pgadmin.org/download/pgadmin-4-macos/)
+
+### Postman
+
+Download the application from the [offical Postman website](https://www.postman.com/downloads/) (You can use the web application however, features can be limited)
+
+---
+
+<!-- TODO: Update this will a installation and setup guide as well as provide the postman collection somewhere-->
+
+## Install / Setup Guide
 
     $ git clone https://github.com/YOUR_USERNAME/PROJECT_TITLE
     $ cd PROJECT_TITLE
