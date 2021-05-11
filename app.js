@@ -7,10 +7,8 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.send("Work in Progress!");
-});
+require("./api/routes")(app);
 
 app.listen(port, () => {
-  console.log(`App running on port ${port}.`);
+    console.log(`App running on port ${port}.`);
 });
