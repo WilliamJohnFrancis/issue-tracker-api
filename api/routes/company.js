@@ -1,28 +1,12 @@
 const router = require("express").Router();
+const companyController = require("../controllers/companyController");
 
-router.get("/", (req, res) => {
-    res.send("Get all companys");
-});
+router.get("/:id", companyController.getCompany);
 
-router.get("/:id", (req, res) => {
-    res.send("Get company");
-});
+router.put("/:id", companyController.updateCompany);
 
-router.put("/", (req, res) => {
-    console.log(req.body["company_id"]);
-    res.send("Put all companys");
-});
+router.post("/", companyController.createCompany);
 
-router.put("/:id", (req, res) => {
-    res.send("Put company");
-});
-
-router.post("/", (req, res) => {
-    res.send("Post company");
-});
-
-router.delete("/:id", (req, res) => {
-    res.send("Post company");
-});
+router.delete("/:id", companyController.deleteCompany);
 
 module.exports = router;
