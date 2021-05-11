@@ -5,7 +5,7 @@ router.get("/", userController.getCompanyUsers);
 
 router.get("/:id", userController.getCompanyUser);
 
-router.put("/", userController.updateUserForCompany);
+router.put("/", userController.updateUsersForCompany);
 
 router.put("/:id", userController.updateUser);
 

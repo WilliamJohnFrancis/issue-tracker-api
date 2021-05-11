@@ -9,7 +9,7 @@ exports.getCompanyUser = (req, res) => {
     res.send("Get user " + req.params.id);
 };
 
-exports.updateUserForCompany = (req, res) => {
+exports.updateUsersForCompany = (req, res) => {
     res.send("Update all users for " + req.body["company_id"]);
 };
 
