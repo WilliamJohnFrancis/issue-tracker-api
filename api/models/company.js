@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
             company_id: {
                 type: DataTypes.UUID,
                 defaultValue: DataTypes.UUIDV4,
+                unique: true,
             },
             company_name: {
                 type: DataTypes.STRING,

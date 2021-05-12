@@ -12,6 +12,7 @@ module.exports = {
             ticket_id: {
                 type: Sequelize.UUID,
                 defaultValue: Sequelize.UUIDV4,
+                unique: true,
             },
             issue_number: {
                 type: Sequelize.INTEGER,
@@ -24,6 +25,7 @@ module.exports = {
             originator: {
                 type: Sequelize.UUID,
                 allowNull: false,
+                unique: true,
             },
             description: {
                 type: Sequelize.STRING,
@@ -36,6 +38,7 @@ module.exports = {
             },
             assigned_to: {
                 type: Sequelize.UUID,
+                unique: true,
             },
             progess: {
                 type: Sequelize.STRING,
@@ -46,10 +49,16 @@ module.exports = {
             created_datetime: {
                 allowNull: false,
                 type: Sequelize.DATE,
+                defaultValue: Sequelize.literal(
+                    "(CURRENT_TIMESTAMP at time zone 'utc')"
+                ),
             },
             updated_datetime: {
                 allowNull: false,
                 type: Sequelize.DATE,
+                defaultValue: Sequelize.literal(
+                    "(CURRENT_TIMESTAMP at time zone 'utc')"
+                ),
             },
         });
     },

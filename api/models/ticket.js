@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
             ticket_id: {
                 type: DataTypes.UUID,
                 defaultValue: DataTypes.UUIDV4,
+                unique: true,
             },
             issue_number: {
                 type: DataTypes.INTEGER,
@@ -52,6 +53,7 @@ module.exports = (sequelize, DataTypes) => {
             },
             assigned_to: {
                 type: DataTypes.UUID,
+                unique: true,
             },
             progess: {
                 type: DataTypes.STRING,

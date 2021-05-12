@@ -12,6 +12,7 @@ module.exports = {
             company_id: {
                 type: Sequelize.UUID,
                 defaultValue: Sequelize.UUIDV4,
+                unique: true,
             },
             company_name: {
                 type: Sequelize.STRING,
@@ -22,10 +23,16 @@ module.exports = {
             created_datetime: {
                 allowNull: false,
                 type: Sequelize.DATE,
+                defaultValue: Sequelize.literal(
+                    "(CURRENT_TIMESTAMP at time zone 'utc')"
+                ),
             },
             updated_datetime: {
                 allowNull: false,
                 type: Sequelize.DATE,
+                defaultValue: Sequelize.literal(
+                    "(CURRENT_TIMESTAMP at time zone 'utc')"
+                ),
             },
         });
     },
