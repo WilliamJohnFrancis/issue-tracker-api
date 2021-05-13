@@ -14,6 +14,10 @@ module.exports = {
                 defaultValue: Sequelize.UUIDV4,
                 unique: true,
             },
+            company_id: {
+                type: Sequelize.INTEGER,
+                allowNull: true,
+            },
             first_name: {
                 type: Sequelize.STRING,
                 allowNull: false,

@@ -11,10 +11,14 @@ module.exports = (sequelize, DataTypes) => {
         static associate({ Ticket, Company }) {
             // define association here
             this.hasMany(Ticket, { foreignKey: "user_id" });
+            this.belongsTo(Company, {
+                foreignKey: "company_id",
+                as: "company",
+            });
         }
 
         toJSON() {
-            return { ...this.get(), id: undefined };
+            return { ...this.get(), id: undefined, company_id: undefined };
         }
     }
     User.init(
