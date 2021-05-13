@@ -11,36 +11,30 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate({ User }) {
             // define association here
-            this.belongsTo(User, {
-                foreignKey: {
-                    name: "originator",
-                    targetKey: "user_id",
-                    type: DataTypes.UUID,
-                },
-            });
+            this.belongsTo(User, { foreignKey: "user_id", as: "user" });
         }
 
         toJSON() {
-            return { ...this.get(), id: undefined };
+            return { ...this.get(), id: undefined, user_id: undefined };
         }
     }
     ticket.init(
         {
-            ticket_id: {
+            ticket_uuid: {
                 type: DataTypes.UUID,
                 defaultValue: DataTypes.UUIDV4,
                 unique: true,
             },
-            issue_number: {
+            number: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
-            issue_name: {
+            name: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
             description: {
-                type: DataTypes.STRING,
+                type: DataTypes.TEXT,
                 allowNull: false,
             },
             priority: {
@@ -55,12 +49,8 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.UUID,
                 unique: true,
             },
-            progess: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
             suggested_solution: {
-                type: DataTypes.STRING,
+                type: DataTypes.TEXT,
                 allowNull: false,
             },
         },
@@ -68,6 +58,8 @@ module.exports = (sequelize, DataTypes) => {
             sequelize,
             tableName: "ticket",
             modelName: "Ticket",
+            createdAt: "created_datetime",
+            updatedAt: "updated_datetime",
         }
     );
     return ticket;

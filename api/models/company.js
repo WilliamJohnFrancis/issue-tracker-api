@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
-        static associate(models) {
+        static associate({ User }) {
             // define association here
         }
 
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     }
     Company.init(
         {
-            company_id: {
+            company_uuid: {
                 type: DataTypes.UUID,
                 defaultValue: DataTypes.UUIDV4,
                 unique: true,
@@ -37,6 +37,8 @@ module.exports = (sequelize, DataTypes) => {
             sequelize,
             tableName: "company",
             modelName: "Company",
+            createdAt: "created_datetime",
+            updatedAt: "updated_datetime",
         }
     );
     return Company;

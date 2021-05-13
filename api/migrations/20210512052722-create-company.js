@@ -9,7 +9,7 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            company_id: {
+            company_uuid: {
                 type: Sequelize.UUID,
                 defaultValue: Sequelize.UUIDV4,
                 unique: true,

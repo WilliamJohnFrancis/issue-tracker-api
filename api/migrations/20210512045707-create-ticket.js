@@ -9,30 +9,32 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            ticket_id: {
+            ticket_uuid: {
                 type: Sequelize.UUID,
                 defaultValue: Sequelize.UUIDV4,
                 unique: true,
             },
-            issue_number: {
+            user_id: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                require: true,
+            },
+            number: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
             },
-            issue_name: {
+            name: {
                 type: Sequelize.STRING,
                 allowNull: false,
-            },
-            originator: {
-                type: Sequelize.UUID,
-                allowNull: false,
-                unique: true,
             },
             description: {
-                type: Sequelize.STRING,
+                type: Sequelize.TEXT,
             },
+            // TODO: look into making this a choice potentially maping int to meaning
             priority: {
                 type: Sequelize.INTEGER,
             },
+            // TODO: look into making this a choice
             status: {
                 type: Sequelize.STRING,
             },
@@ -40,11 +42,8 @@ module.exports = {
                 type: Sequelize.UUID,
                 unique: true,
             },
-            progess: {
-                type: Sequelize.STRING,
-            },
             suggested_solution: {
-                type: Sequelize.STRING,
+                type: Sequelize.TEXT,
             },
             created_datetime: {
                 allowNull: false,
