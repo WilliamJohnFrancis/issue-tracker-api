@@ -1,8 +1,10 @@
-// TODO: Import models
-// Using strings for now, testing connections
+const { getAllUsersForCompany } = require("../services/userService");
 
-exports.getCompanyUsers = (req, res) => {
-    res.send("Get all users controller");
+exports.getCompanyUsers = async (req, res) => {
+    let company_id = req.body["company_id"];
+    let [body, status] = await getAllUsersForCompany(company_id);
+
+    res.status(status).send(body);
 };
 
 exports.getCompanyUser = (req, res) => {
