@@ -1,18 +1,46 @@
-const { getAllUsersForCompany } = require("../services/userService");
+const {
+    getAllUsersForCompany,
+    getUser,
+    updateUsersForCompany,
+} = require("../services/userService");
+
+// TODO: Look into alternative error handling
 
 exports.getCompanyUsers = async (req, res) => {
-    let company_id = req.body["company_id"];
-    let [body, status] = await getAllUsersForCompany(company_id);
+    let companyId = req.body["company_id"];
+    let [body, status] = await getAllUsersForCompany(companyId);
 
     res.status(status).send(body);
 };
 
-exports.getCompanyUser = (req, res) => {
-    res.send("Get user " + req.params.id);
+exports.getUser = async (req, res) => {
+    let userId = req.params.id;
+    let [body, status] = await getUser(userId);
+
+    res.status(status).send(body);
 };
 
-exports.updateUsersForCompany = (req, res) => {
-    res.send("Update all users for " + req.body["company_id"]);
+// TODO: This is throwing an iteration error over an unresolved promise
+// TODO: Not sure why it's unresolved -> Read into promises.
+
+exports.updateUsersForCompany = async (req, res) => {
+    let userId = req.body["user_id"];
+    let firstName = req.body["first_name"];
+    let lastName = req.body["last_name"];
+    let email = req.body["email"];
+    let active = req.body["active"];
+
+    console.log(userId, firstName, lastName, email, active);
+
+    let [body, status] = await updateUsersForCompany(
+        userId,
+        firstName,
+        lastName,
+        email,
+        active
+    );
+
+    res.status(status).send(body);
 };
 
 exports.updateUser = (req, res) => {
