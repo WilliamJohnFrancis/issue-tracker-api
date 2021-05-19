@@ -5,6 +5,7 @@ const {
 } = require("../services/userService");
 
 // TODO: Look into alternative error handling
+// TODO: Look into request validation
 
 exports.getCompanyUsers = async (req, res) => {
     let companyId = req.body["company_id"];
@@ -19,9 +20,6 @@ exports.getUser = async (req, res) => {
 
     res.status(status).send(body);
 };
-
-// TODO: This is throwing an iteration error over an unresolved promise
-// TODO: Not sure why it's unresolved -> Read into promises.
 
 exports.updateUsersForCompany = async (req, res) => {
     let userId = req.body["user_id"];

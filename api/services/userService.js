@@ -31,8 +31,7 @@ exports.getUser = async (userId) => {
     let body;
     let status;
 
-    // TODO: Figure out why this evaluation is not working correctly -> typeof
-    if (userId == false || typeof userId == String) {
+    if (userId == false || typeof userId == "string") {
         body = "A valid userID is required";
         status = 400;
         return [body, status];
@@ -53,7 +52,6 @@ exports.getUser = async (userId) => {
     }
 };
 
-// TODO: Look into why this and the userController calling it is throwing an error
 exports.updateUsersForCompany = async (
     userId,
     firstName,
@@ -64,36 +62,36 @@ exports.updateUsersForCompany = async (
     let body;
     let status;
 
-    if (userId == false) {
+    if (userId == false || userId == undefined) {
         body = "userId is required";
         status = 400;
         return [body, status];
     }
 
-    // let user = await User.findOne({
-    //     where: { id: userId },
-    // });
+    let user = await User.findOne({
+        where: { id: userId },
+    });
 
-    // if (user == null) {
-    //     body = "This user does not exist.";
-    //     status = 400;
-    //     return [body, status];
-    // } else {
-    //     await User.update(
-    //         {
-    //             first_name: firstName,
-    //             last_name: lastName,
-    //             email: email,
-    //             active: active,
-    //         },
-    //         {
-    //             where: {
-    //                 id: userId,
-    //             },
-    //         }
-    //     );
-    //     body = user;
-    //     status = 200;
-    //     return [body, status];
-    // }
+    if (user == null) {
+        body = "This user does not exist.";
+        status = 400;
+        return [body, status];
+    } else {
+        await user.update(
+            {
+                first_name: firstName.toLowerCase(),
+                last_name: lastName.toLowerCase(),
+                email: email.toLowerCase(),
+                active: active,
+            },
+            {
+                where: {
+                    id: userId,
+                },
+            }
+        );
+        body = user;
+        status = 200;
+        return [body, status];
+    }
 };
