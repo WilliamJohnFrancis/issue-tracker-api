@@ -1,6 +1,7 @@
 const { User } = require("../models");
 
 // TODO: Look into adding try catch around the DB transactions
+// TODO: Look into moving some of this into a request validation service and call it in the controller before passing into here
 
 exports.getAllUsersForCompany = async (companyId) => {
     let body;
@@ -31,7 +32,7 @@ exports.getUser = async (userId) => {
     let body;
     let status;
 
-    if (userId == false || typeof userId == "string") {
+    if (userId == false || isNaN(userId) == true) {
         body = "A valid userID is required";
         status = 400;
         return [body, status];
@@ -52,7 +53,6 @@ exports.getUser = async (userId) => {
     }
 };
 
-// TODO: Test this after makeing the create user request
 exports.updateUsersForCompany = async (companyId, active) => {
     let body;
     let status;
@@ -72,7 +72,7 @@ exports.updateUsersForCompany = async (companyId, active) => {
         status = 400;
         return [body, status];
     } else {
-        await users.update(
+        await User.update(
             {
                 active: active,
             },
@@ -82,7 +82,7 @@ exports.updateUsersForCompany = async (companyId, active) => {
                 },
             }
         );
-        body = "All users for " + companyId + " have been deactivated";
+        body = "All users for " + companyId + " have been updated.";
         status = 200;
         return [body, status];
     }
@@ -122,6 +122,65 @@ exports.updateUser = async (userId, firstName, lastName, email, active) => {
         );
         body = user;
         status = 200;
+        return [body, status];
+    }
+};
+
+exports.createUser = async (firstName, lastName, comapanyId, email) => {
+    let body;
+    let status;
+
+    if (
+        firstName == false ||
+        lastName == false ||
+        comapanyId == false ||
+        email == false
+    ) {
+        body = "There are missing fields.";
+        status = 400;
+        return [body, status];
+    }
+
+    let user = await User.create({
+        first_name: firstName.toLowerCase(),
+        last_name: lastName.toLowerCase(),
+        company_id: comapanyId,
+        email: email.toLowerCase(),
+        active: true,
+    });
+
+    body = user;
+    status = 200;
+    return [body, status];
+};
+
+exports.deleteUser = async (userId) => {
+    let body;
+    let status;
+
+    if (userId == false || isNaN(userId) == true) {
+        body = "A valid userID is required";
+        status = 400;
+        return [body, status];
+    }
+
+    await User.destroy({
+        where: { id: userId },
+    });
+
+    let result = await User.findOne({
+        where: { id: userId },
+    });
+
+    console.log(result);
+
+    if (result == null) {
+        body = "The user has been deleted";
+        status = 200;
+        return [body, status];
+    } else {
+        body = "Something went wrong please try again";
+        status = 400;
         return [body, status];
     }
 };

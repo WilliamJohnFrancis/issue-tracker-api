@@ -3,6 +3,8 @@ const {
     getUser,
     updateUser,
     updateUsersForCompany,
+    createUser,
+    deleteUser,
 } = require("../services/userService");
 
 // TODO: Look into alternative error handling
@@ -49,12 +51,27 @@ exports.updateUser = async (req, res) => {
     res.status(status).send(body);
 };
 
-exports.createUser = (req, res) => {
-    res.send(
-        "Create user " + req.body["first_name"] + " " + req.body["last_name"]
+exports.createUser = async (req, res) => {
+    let firstName = req.body["first_name"];
+    let lastName = req.body["last_name"];
+    let companyId = req.body["company_id"];
+    let email = req.body["email"];
+
+    let [body, status] = await createUser(
+        firstName,
+        lastName,
+        companyId,
+        email
     );
+
+    res.status(status).send(body);
 };
 
-exports.deleteUser = (req, res) => {
-    res.send("Delete user " + req.params.id);
+exports.deleteUser = async (req, res) => {
+    let userId = req.params.id;
+    console.log(typeof userId);
+
+    let [body, status] = await deleteUser(userId);
+
+    res.status(status).send(body);
 };
