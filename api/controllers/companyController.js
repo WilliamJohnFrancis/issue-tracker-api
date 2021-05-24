@@ -1,18 +1,42 @@
-// TODO: Import models
-// Using strings for now, testing connections
+const {
+    getCompany,
+    updateCompany,
+    createCompany,
+    deleteCompany,
+} = require("../services/companyService");
 
-exports.getCompany = (req, res) => {
-    res.send("Get company " + req.params.id);
+// TODO: Look into alternative error handling
+// TODO: Look into request validation
+
+exports.getCompany = async (req, res) => {
+    let companyId = req.params.id;
+    let [body, status] = await getCompany(companyId);
+
+    res.status(status).send(body);
 };
 
-exports.updateCompany = (req, res) => {
-    res.send("Update " + req.params.id);
+exports.updateCompany = async (req, res) => {
+    let companyId = req.params.id;
+    let companyName = req.body["company_name"];
+
+    let [body, status] = await updateCompany(companyId, companyName);
+
+    res.status(status).send(body);
 };
 
-exports.createCompany = (req, res) => {
-    res.send("Create company " + req.body["name"]);
+exports.createCompany = async (req, res) => {
+    let companyName = req.body["company_name"];
+
+    let [body, status] = await createCompany(companyName);
+
+    res.status(status).send(body);
 };
 
-exports.deleteCompany = (req, res) => {
-    res.send("Delete company " + req.params.id);
+exports.deleteCompany = async (req, res) => {
+    let companyId = req.params.id;
+    console.log(typeof companyId);
+
+    let [body, status] = await deleteCompany(companyId);
+
+    res.status(status).send(body);
 };

@@ -1,5 +1,6 @@
 const { User } = require("../models");
 
+// TODO: Update to use uuid instead of id
 // TODO: Look into adding try catch around the DB transactions
 // TODO: Look into moving some of this into a request validation service and call it in the controller before passing into here
 
