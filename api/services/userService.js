@@ -52,13 +52,43 @@ exports.getUser = async (userId) => {
     }
 };
 
-exports.updateUsersForCompany = async (
-    userId,
-    firstName,
-    lastName,
-    email,
-    active
-) => {
+// TODO: Test this after makeing the create user request
+exports.updateUsersForCompany = async (companyId, active) => {
+    let body;
+    let status;
+
+    if (companyId == false || companyId == undefined) {
+        body = "companyId is required";
+        status = 400;
+        return [body, status];
+    }
+
+    let users = await User.findAll({
+        where: { company_id: companyId },
+    });
+
+    if (users == null) {
+        body = "Users do not exist for this company.";
+        status = 400;
+        return [body, status];
+    } else {
+        await users.update(
+            {
+                active: active,
+            },
+            {
+                where: {
+                    company_id: companyId,
+                },
+            }
+        );
+        body = "All users for " + companyId + " have been deactivated";
+        status = 200;
+        return [body, status];
+    }
+};
+
+exports.updateUser = async (userId, firstName, lastName, email, active) => {
     let body;
     let status;
 
