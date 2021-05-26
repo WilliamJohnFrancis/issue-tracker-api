@@ -76,7 +76,6 @@ exports.createCompany = async (companyName) => {
 
     let company = await Company.create({
         company_name: companyName.toLowerCase(),
-        number_of_tickets: 0,
     });
 
     body = company;

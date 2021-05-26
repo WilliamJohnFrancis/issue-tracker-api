@@ -1,26 +1,85 @@
-// TODO: Import models
-// Using strings for now, testing connections
+const {
+    getCompanyTickets,
+    getTicket,
+    createTicket,
+    updateTicket,
+    updateTicketsForCompany,
+    deleteTicket,
+} = require("../services/ticketService");
 
-exports.getCompanyTickets = (req, res) => {
-    res.send("Get all tickets controller");
+// TODO: Look into alternative error handling
+// TODO: Look into request validation
+
+exports.getCompanyTickets = async (req, res) => {
+    let companyId = req.body["company_id"];
+    let [body, status] = await getCompanyTickets(companyId);
+
+    res.status(status).send(body);
 };
 
-exports.getTicket = (req, res) => {
-    res.send("Get ticket " + req.params.id);
+exports.getTicket = async (req, res) => {
+    let companyId = req.params.id;
+    let [body, status] = await getTicket(companyId);
+
+    res.status(status).send(body);
 };
 
-exports.updateTicketsForCompany = (req, res) => {
-    res.send("Update all tickets for " + req.body["company_id"]);
+exports.updateTicketsForCompany = async (req, res) => {
+    let companyId = req.body["company_id"];
+    let active = req.body["active"];
+
+    let [body, status] = await updateTicketsForCompany(companyId, active);
+
+    res.status(status).send(body);
 };
 
-exports.updateTicket = (req, res) => {
-    res.send("Update ticket for " + req.params.id);
+exports.updateTicket = async (req, res) => {
+    let ticketId = req.params.id;
+    let name = req.body["name"];
+    let description = req.body["description"];
+    let priority = req.body["priority"];
+    let ticketStatus = req.body["status"];
+    let suggestedSolution = req.body["suggested_solution"];
+    let assignedTo = req.body["assigned_to"];
+
+    let [body, status] = await updateTicket(
+        ticketId,
+        name,
+        description,
+        priority,
+        ticketStatus,
+        suggestedSolution,
+        assignedTo
+    );
+
+    res.status(status).send(body);
 };
 
-exports.createTicket = (req, res) => {
-    res.send("Create ticket " + req.body["title"]);
+exports.createTicket = async (req, res) => {
+    let companyId = req.body["company_id"];
+    let userId = req.body["user_id"];
+    let name = req.body["name"];
+    let description = req.body["description"];
+    let priority = req.body["priority"];
+    let ticketStatus = req.body["status"];
+    let suggestedSolution = req.body["suggested_solution"];
+
+    let [body, status] = await createTicket(
+        companyId,
+        userId,
+        name,
+        description,
+        priority,
+        ticketStatus,
+        suggestedSolution
+    );
+
+    res.status(status).send(body);
 };
 
-exports.deleteTicket = (req, res) => {
-    res.send("Delete ticket " + req.params.id);
+exports.deleteTicket = async (req, res) => {
+    let ticketId = req.params.id;
+    let [body, status] = await deleteTicket(ticketId);
+
+    res.status(status).send(body);
 };

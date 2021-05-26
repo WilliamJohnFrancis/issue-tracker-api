@@ -173,8 +173,6 @@ exports.deleteUser = async (userId) => {
         where: { id: userId },
     });
 
-    console.log(result);
-
     if (result == null) {
         body = "The user has been deleted";
         status = 200;
