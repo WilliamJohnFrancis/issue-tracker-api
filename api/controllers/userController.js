@@ -1,28 +1,77 @@
-// TODO: Import models
-// Using strings for now, testing connections
+const {
+    getAllUsersForCompany,
+    getUser,
+    updateUser,
+    updateUsersForCompany,
+    createUser,
+    deleteUser,
+} = require("../services/userService");
 
-exports.getCompanyUsers = (req, res) => {
-    res.send("Get all users controller");
+// TODO: Look into alternative error handling
+// TODO: Look into request validation
+
+exports.getCompanyUsers = async (req, res) => {
+    let companyId = req.body["company_id"];
+    let [body, status] = await getAllUsersForCompany(companyId);
+
+    res.status(status).send(body);
 };
 
-exports.getCompanyUser = (req, res) => {
-    res.send("Get user " + req.params.id);
+exports.getUser = async (req, res) => {
+    let userId = req.params.id;
+    let [body, status] = await getUser(userId);
+
+    res.status(status).send(body);
 };
 
-exports.updateUsersForCompany = (req, res) => {
-    res.send("Update all users for " + req.body["company_id"]);
+exports.updateUsersForCompany = async (req, res) => {
+    let companyId = req.body["company_id"];
+    let active = req.body["active"];
+
+    let [body, status] = await updateUsersForCompany(companyId, active);
+
+    res.status(status).send(body);
 };
 
-exports.updateUser = (req, res) => {
-    res.send("Update user for " + req.params.id);
-};
+exports.updateUser = async (req, res) => {
+    let userId = req.params.id;
+    let firstName = req.body["first_name"];
+    let lastName = req.body["last_name"];
+    let email = req.body["email"];
+    let active = req.body["active"];
 
-exports.createUser = (req, res) => {
-    res.send(
-        "Create user " + req.body["first_name"] + " " + req.body["last_name"]
+    let [body, status] = await updateUser(
+        userId,
+        firstName,
+        lastName,
+        email,
+        active
     );
+
+    res.status(status).send(body);
 };
 
-exports.deleteUser = (req, res) => {
-    res.send("Delete user " + req.params.id);
+exports.createUser = async (req, res) => {
+    let firstName = req.body["first_name"];
+    let lastName = req.body["last_name"];
+    let companyId = req.body["company_id"];
+    let email = req.body["email"];
+
+    let [body, status] = await createUser(
+        firstName,
+        lastName,
+        companyId,
+        email
+    );
+
+    res.status(status).send(body);
+};
+
+exports.deleteUser = async (req, res) => {
+    let userId = req.params.id;
+    console.log(typeof userId);
+
+    let [body, status] = await deleteUser(userId);
+
+    res.status(status).send(body);
 };

@@ -3,7 +3,7 @@ const userController = require("../controllers/userController");
 
 router.get("/", userController.getCompanyUsers);
 
-router.get("/:id", userController.getCompanyUser);
+router.get("/:id", userController.getUser);
 
 router.put("/", userController.updateUsersForCompany);
 
